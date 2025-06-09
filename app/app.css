@@ -7,9 +7,37 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-white;
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+  @media (prefers-color-scheme: white) {
+    color-scheme: white;
   }
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.background {
+  background-image: url('./welcome/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.foreground {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 800px;
+  min-height: 600px;
+  justify-self: center;
 }

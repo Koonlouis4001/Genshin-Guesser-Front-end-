@@ -1,0 +1,21 @@
+npx create-react-router@latest
+
+development
+npm run dev
+
+production
+npm run build
+
+docker deployment
+To build and run using Docker:
+
+```bash
+docker build -t my-app .
+
+# Run the container
+docker run -p 3000:3000 my-app
+
+we can config port in vite.config.ts
+server: {
+    port: 3000
+}
