@@ -1,7 +1,6 @@
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
-import fullLogo from "./fullLogo.png";
-import background from "./background.jpg";
+import fullLogo from "app/image/fullLogo.png";
 import { GenshinGuesser } from "~/component/GenshinGuesser";
 
 export function Welcome() {
