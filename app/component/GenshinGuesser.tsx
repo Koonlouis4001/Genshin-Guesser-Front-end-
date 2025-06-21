@@ -1,48 +1,40 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { GenshinGuesserSelector } from "./GenshinGuesserSelector";
+import { DailyCharacter } from "./DailyCharacter";
+import { GenshinGuesserTable } from "./GenshinGuesserTable";
 
 export function GenshinGuesser() {
-  const [characters, setCharacters] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const [currentCharacter, setCurrentCharacter] = useState(null);
+  const [guessCharacterList, setGuessCharacterList] = useState<any[]>([]);
+  const [finishGame, setFinishGame] = useState(false);
 
   useEffect(() => {
-    async function fetchCharacters() {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await axios.get(
-          "http://localhost:8090/genshin-characters"
-        );
-        setCharacters(response.data);
-        console.log(response.data);
-      } catch {
-        setError("Failed to fetch characters");
-      } finally {
-        setLoading(false);
-      }
+    if(guessCharacterList.length > 0 && !finishGame) {
+      console.log("Resetting game...");
+      setCurrentCharacter(null);
+      setGuessCharacterList([]);
     }
-    fetchCharacters();
-  }, []);
+  }, [finishGame]);
+
+  const guessCharacter = (character: any) => {
+    if(character === null || character === undefined) {
+        return;
+    }
+    console.log("You have choose : " + character.name);
+    if(guessCharacterList.some(c => c.id === character.id)) {
+      console.log("Character already guessed: " + character.name);
+      return; // Character already guessed
+    }
+    setCurrentCharacter(character);
+    setGuessCharacterList(prevList => [...prevList, character]);
+  }
 
   return (
-    <div className="max-w-[300px] w-full space-y-6 px-4">
-      <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-        <ul>
-            {loading && <li className="text-black-700">Loading characters...</li>}
-            {error && <li className="text-red-500">{error}</li>}
-            {!loading && !error && characters.length === 0 && (
-                <li className="text-black-700">No characters found</li>
-            )}
-            {!loading &&
-                !error &&
-                characters.map((character) => (
-                <li key={character.id} className="text-black-700 dark:text-black-300">
-                    {character.name}
-                </li>
-                ))}
-        </ul>
-      </nav>
+    <div>
+      <DailyCharacter currentCharacter = {currentCharacter} finishGame={finishGame} setFinishGame={setFinishGame}/>
+      <GenshinGuesserSelector guessCharacter = {guessCharacter} guessCharacterList={guessCharacterList} finishGame={finishGame}/>
+      <GenshinGuesserTable guessCharacterList={guessCharacterList}/>
     </div>
   );
 }
