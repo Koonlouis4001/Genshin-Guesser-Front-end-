@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 type GenshinGuesserSelectorProps = {
   guessCharacter: (character: Object) => void;
   guessCharacterList: any[];
-  finishGame: boolean;
 };
 
-export function GenshinGuesserSelector({ guessCharacter,guessCharacterList,finishGame }: GenshinGuesserSelectorProps) {
+export function GenshinGuesserSelector({ guessCharacter,guessCharacterList }: GenshinGuesserSelectorProps) {
   const [characters, setCharacters] = useState<any[]>([]);
   const [filterCharacters, setFilterCharacters] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -20,7 +19,7 @@ export function GenshinGuesserSelector({ guessCharacter,guessCharacterList,finis
       setError(null);
       try {
         const response = await axios.get(
-          "http://localhost:8090/genshin-characters"
+          `${import.meta.env.VITE_BACKEND_URL}/genshin-characters`
         );
         setCharacters(response.data);
       } catch {
@@ -53,9 +52,9 @@ export function GenshinGuesserSelector({ guessCharacter,guessCharacterList,finis
     guessCharacter(characters.find(character => character.id == id));
   }
 
-  return (!finishGame &&
+  return (
     <select 
-    className="max-w-[300px] w-full space-y-6 px-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700"
+    className="select w-full space-y-6 px-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700"
     value={value}
     onChange={(e) => {
         setValue(e.target.value);
@@ -67,7 +66,8 @@ export function GenshinGuesserSelector({ guessCharacter,guessCharacterList,finis
         {characters.length != 0 && 
         filterCharacters.map((character) => (
           <option key={character.id} value={character.id} className="text-black-700 dark:text-black-300">
-            {character.name} - {character.region} - {character.vision} - {character.weapon} - {character.affiliation} - {character.version}
+            {character.name}
+            {/*  - {character.region} - {character.vision} - {character.weapon} - {character.affiliation} - {character.version} */}
           </option>
         ))}
     </select>

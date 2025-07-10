@@ -1,12 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 
 type GenshinGuesserTableProps = {
   guessCharacterList: any[];
@@ -19,7 +13,7 @@ export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableP
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell align="center">Name</TableCell>
             <TableCell align="center">Region</TableCell>
             <TableCell align="center">Vision</TableCell>
             <TableCell align="center">Weapon</TableCell>
@@ -33,14 +27,16 @@ export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableP
               key={guessCharacter.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {guessCharacter.name}
+              <TableCell className={`display_col ${guessCharacter.check?.status}`}>{guessCharacter.name}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.region}`}>{guessCharacter.region}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.vision}`}>{guessCharacter.vision}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.weapon}`}>{guessCharacter.weapon}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.affiliation}`}>{guessCharacter.affiliation}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.version == "correct" ? "correct" : "incorrect"}`}>
+                {guessCharacter.version}
+                {guessCharacter.check?.version === "higher" && "▲"}
+                {guessCharacter.check?.version === "lower" && "▼"}
               </TableCell>
-              <TableCell align="center">{guessCharacter.region}</TableCell>
-              <TableCell align="center">{guessCharacter.vision}</TableCell>
-              <TableCell align="center">{guessCharacter.weapon}</TableCell>
-              <TableCell align="center">{guessCharacter.affiliation}</TableCell>
-              <TableCell align="center">{guessCharacter.version}</TableCell>
             </TableRow>
           ))}
         </TableBody>
