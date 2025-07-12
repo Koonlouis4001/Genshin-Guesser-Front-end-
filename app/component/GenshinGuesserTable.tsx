@@ -13,12 +13,13 @@ export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableP
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Region</TableCell>
-            <TableCell align="center">Vision</TableCell>
-            <TableCell align="center">Weapon</TableCell>
-            <TableCell align="center">Affiliation</TableCell>
-            <TableCell align="center">Version</TableCell>
+            <TableCell className="header_col">Name</TableCell>
+            <TableCell className="header_col">Gender</TableCell>
+            <TableCell className="header_col">Region</TableCell>
+            <TableCell className="header_col">Vision</TableCell>
+            <TableCell className="header_col">Weapon</TableCell>
+            <TableCell className="header_col">Affiliation</TableCell>
+            <TableCell className="header_col">Version</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -28,6 +29,7 @@ export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableP
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell className={`display_col ${guessCharacter.check?.status}`}>{guessCharacter.name}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.gender}`}>{guessCharacter.gender}</TableCell>
               <TableCell className={`display_col ${guessCharacter.check?.region}`}>{guessCharacter.region}</TableCell>
               <TableCell className={`display_col ${guessCharacter.check?.vision}`}>{guessCharacter.vision}</TableCell>
               <TableCell className={`display_col ${guessCharacter.check?.weapon}`}>{guessCharacter.weapon}</TableCell>

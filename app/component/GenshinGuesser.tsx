@@ -15,6 +15,7 @@ export function GenshinGuesser() {
   const [mode, setMode] = useState("daily");
   const [answerTemplate, setAnswerTemplate] = useState({
     status: "incorrect",
+    gender: "incorrect",
     weapon: "incorrect",
     vision: "incorrect",
     region: "incorrect",
@@ -49,7 +50,10 @@ export function GenshinGuesser() {
       currentAnswerTemplate.status = "correct";
       setFinishGame(true);
     }
-
+    
+    if (character.gender === dailyCharacter.gender) {
+      currentAnswerTemplate.gender = "correct";
+    }
     if (character.weapon === dailyCharacter.weapon) {
       currentAnswerTemplate.weapon = "correct";
     }

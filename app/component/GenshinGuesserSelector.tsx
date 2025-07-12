@@ -54,7 +54,7 @@ export function GenshinGuesserSelector({ guessCharacter,guessCharacterList }: Ge
 
   return (
     <select 
-    className="select w-full space-y-6 px-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700"
+    className="custom-selector"
     value={value}
     onChange={(e) => {
         setValue(e.target.value);
