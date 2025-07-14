@@ -28,13 +28,13 @@ export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableP
               key={guessCharacter.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell className={`display_col ${guessCharacter.check?.status}`}>{guessCharacter.name}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.gender}`}>{guessCharacter.gender}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.region}`}>{guessCharacter.region}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.vision}`}>{guessCharacter.vision}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.weapon}`}>{guessCharacter.weapon}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.affiliation}`}>{guessCharacter.affiliation}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.version == "correct" ? "correct" : "incorrect"}`}>
+              <TableCell className={`display_col ${guessCharacter.check?.status}`} style={{['--delay' as any] : `0.5s`}}>{guessCharacter.name}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.gender}`} style={{['--delay' as any] : `1s`}}>{guessCharacter.gender}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.region}`} style={{['--delay' as any] : `1.5s`}}>{guessCharacter.region}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.vision}`} style={{['--delay' as any] : `2s`}}>{guessCharacter.vision}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.weapon}`} style={{['--delay' as any] : `2.5s`}}>{guessCharacter.weapon}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.affiliation}`} style={{['--delay' as any] : `3s`}}>{guessCharacter.affiliation}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.version == "correct" ? "correct" : "incorrect"}`} style={{['--delay' as any] : `3.5s`}}>
                 {guessCharacter.version}
                 {guessCharacter.check?.version === "higher" && "▲"}
                 {guessCharacter.check?.version === "lower" && "▼"}
