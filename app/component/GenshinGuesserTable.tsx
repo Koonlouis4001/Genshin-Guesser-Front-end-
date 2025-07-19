@@ -8,8 +8,10 @@ type GenshinGuesserTableProps = {
 
 export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableProps) {
 
+  var delay = 0.25;
+
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -28,13 +30,13 @@ export function GenshinGuesserTable({ guessCharacterList }: GenshinGuesserTableP
               key={guessCharacter.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell className={`display_col ${guessCharacter.check?.status}`} style={{['--delay' as any] : `0.5s`}}>{guessCharacter.name}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.gender}`} style={{['--delay' as any] : `1s`}}>{guessCharacter.gender}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.region}`} style={{['--delay' as any] : `1.5s`}}>{guessCharacter.region}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.vision}`} style={{['--delay' as any] : `2s`}}>{guessCharacter.vision}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.weapon}`} style={{['--delay' as any] : `2.5s`}}>{guessCharacter.weapon}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.affiliation}`} style={{['--delay' as any] : `3s`}}>{guessCharacter.affiliation}</TableCell>
-              <TableCell className={`display_col ${guessCharacter.check?.version == "correct" ? "correct" : "incorrect"}`} style={{['--delay' as any] : `3.5s`}}>
+              <TableCell className={`display_col ${guessCharacter.check?.status}`} style={{['--delay' as any] : `${delay * 1}s`}}>{guessCharacter.name}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.gender}`} style={{['--delay' as any] : `${delay * 2}s`}}>{guessCharacter.gender}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.region}`} style={{['--delay' as any] : `${delay * 3}s`}}>{guessCharacter.region}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.vision}`} style={{['--delay' as any] : `${delay * 4}s`}}>{guessCharacter.vision}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.weapon}`} style={{['--delay' as any] : `${delay * 5}s`}}>{guessCharacter.weapon}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.affiliation}`} style={{['--delay' as any] : `${delay * 6}s`}}>{guessCharacter.affiliation}</TableCell>
+              <TableCell className={`display_col ${guessCharacter.check?.version == "correct" ? "correct" : "incorrect"}`} style={{['--delay' as any] : `${delay * 7}s`}}>
                 {guessCharacter.version}
                 {guessCharacter.check?.version === "higher" && "▲"}
                 {guessCharacter.check?.version === "lower" && "▼"}

@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ export function GenshinGuesserSelector({
   guessCharacterList,
 }: GenshinGuesserSelectorProps) {
   const [characters, setCharacters] = useState<any[]>([]);
-  const [currentSelectCharacter, setCurrentSelectCharacter] = useState<any>();
+  const [currentSelectCharacter, setCurrentSelectCharacter] = useState<any>(null);
   const [filterCharacters, setFilterCharacters] = useState<any[]>([]);
   const [value, setValue] = useState("");
 
@@ -41,6 +41,7 @@ export function GenshinGuesserSelector({
   }, [characters, guessCharacterList]);
 
   const selectCharacter = () => {
+    console.log("Selected character: ", currentSelectCharacter);
     if (!currentSelectCharacter) {
       console.log("No character selected");
       return;
@@ -52,6 +53,36 @@ export function GenshinGuesserSelector({
 
   return (
     <div className="selector-board">
+      <Autocomplete
+        className="custom-selector"
+        disablePortal
+        options={filterCharacters}
+        getOptionLabel={(option) => option.name}
+        // sx={{ width: 300 }}
+        renderInput={(params) => <TextField 
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              height: 50,
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              border: 'none',
+            },
+            '& .MuiOutlinedInput-input': {
+              height: '100%',
+              padding: '0 14px',
+              display: 'flex',
+              alignItems: 'center',
+            },
+          }}
+          {...params} 
+          label="" />}
+        value={currentSelectCharacter}
+        onChange={(e,newValue) => {
+          console.log("New value selected: ", newValue);
+          setCurrentSelectCharacter(characters.find((character) => character.id == newValue.id));
+        }}
+      />
+      {/*
       <select
         className="custom-selector"
         value={value}
@@ -61,6 +92,7 @@ export function GenshinGuesserSelector({
         }}
       >
         <option value="">Please guess a character</option>
+        
         {characters.length != 0 &&
           filterCharacters.map((character) => (
             <option
@@ -69,10 +101,11 @@ export function GenshinGuesserSelector({
               className="text-black-700 dark:text-black-300"
             >
               {character.name}
-              {/*  - {character.region} - {character.vision} - {character.weapon} - {character.affiliation} - {character.version} */}
             </option>
-          ))}
+          ))} 
+        
       </select>
+      */}
       <Button variant="contained" className="guess-button" onClick={selectCharacter}>
         Guess
       </Button>
