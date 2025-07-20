@@ -1,6 +1,7 @@
 import { Autocomplete, Button, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { matchSorter } from 'match-sorter';
 
 type GenshinGuesserSelectorProps = {
   guessCharacter: (character: Object) => void;
@@ -15,6 +16,24 @@ export function GenshinGuesserSelector({
   const [currentSelectCharacter, setCurrentSelectCharacter] = useState<any>(null);
   const [filterCharacters, setFilterCharacters] = useState<any[]>([]);
   const [value, setValue] = useState("");
+
+  // we need to customize the filterOptions function to filter the options based on the input value for Autocomplete
+  // match-sorter is a library that helps to filter options based on the input value
+  // Thresholds can be used to specify the criteria used to rank the results. Available thresholds (from top to bottom) are:
+  // CASE_SENSITIVE_EQUAL
+  // EQUAL
+  // STARTS_WITH
+  // WORD_STARTS_WITH
+  // CONTAINS
+  // ACRONYM
+  // MATCHES (default value)
+  // NO_MATCH
+  const filterOptions = (options : any[], state: { inputValue: string }) => {
+    return matchSorter(options, state.inputValue, {
+      keys: ["name"],
+      //threshold: matchSorter.rankings.MATCHES,
+    });
+  };
 
   useEffect(() => {
     async function fetchCharacters() {
@@ -57,6 +76,7 @@ export function GenshinGuesserSelector({
         className="custom-selector"
         disablePortal
         options={filterCharacters}
+        filterOptions={filterOptions}
         getOptionLabel={(option) => option.name}
         // sx={{ width: 300 }}
         renderInput={(params) => <TextField 
@@ -79,7 +99,7 @@ export function GenshinGuesserSelector({
         value={currentSelectCharacter}
         onChange={(e,newValue) => {
           console.log("New value selected: ", newValue);
-          setCurrentSelectCharacter(characters.find((character) => character.id == newValue.id));
+          setCurrentSelectCharacter(newValue != null ? characters.find((character) => character.id == newValue.id) : null);
         }}
       />
       {/*
