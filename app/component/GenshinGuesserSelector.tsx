@@ -17,6 +17,8 @@ export function GenshinGuesserSelector({
   const [filterCharacters, setFilterCharacters] = useState<any[]>([]);
   const [value, setValue] = useState("");
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   // we need to customize the filterOptions function to filter the options based on the input value for Autocomplete
   // match-sorter is a library that helps to filter options based on the input value
   // Thresholds can be used to specify the criteria used to rank the results. Available thresholds (from top to bottom) are:
@@ -78,7 +80,13 @@ export function GenshinGuesserSelector({
         options={filterCharacters}
         filterOptions={filterOptions}
         getOptionLabel={(option) => option.name}
-        // sx={{ width: 300 }}
+        sx={{ gap: "0" }}
+        renderOption={(props, option) => (
+          <li {...props} className="custom-selector-option">
+            <img src={`${BACKEND_URL}/genshin-characters/image/${option.name}`}/>
+            {option.name}
+          </li>
+        )}
         renderInput={(params) => <TextField 
           sx={{
             '& .MuiOutlinedInput-root': {
@@ -95,7 +103,7 @@ export function GenshinGuesserSelector({
             },
           }}
           {...params} 
-          label="" />}
+        />}
         value={currentSelectCharacter}
         onChange={(e,newValue) => {
           console.log("New value selected: ", newValue);

@@ -88,12 +88,16 @@ body {
   background-color: white;
   text-align: center !important;
   border: solid 5px !important;
+  padding: 0 !important;
+  min-width: 80px !important;
 }
 
 .display_col {
   text-align: center !important;
   border: solid 5px !important;
   background-color: black;
+  padding: 0 !important;
+  min-width: 80px !important;
 }
 
 .display_col.correct {
@@ -124,6 +128,11 @@ body {
   }
 }
 
+.display_col img {
+  justify-self: center;
+  width: 100%;
+}
+
 .selector-board {
   display: flex;
   flex-direction: row;
@@ -148,6 +157,20 @@ body {
   height: 100%;
   color: black;
   font-size: 16px;
+}
+
+.custom-selector-option {
+  display: flex;
+  background-color: white;
+  align-items: center;
+  color: black;
+  border-bottom: 1px solid #ccc;
+}
+
+.custom-selector-option img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
 }
 
 .guess-button {
