@@ -4,9 +4,8 @@ import { DailyCharacter } from "./DailyCharacter";
 import { GenshinGuesserTable } from "./GenshinGuesserTable";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router";
 
-export function GenshinGuesser() {
+export function GenshinGuesserEndless() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentCharacter, setCurrentCharacter] = useState(null);
@@ -22,10 +21,25 @@ export function GenshinGuesser() {
     version: "incorrect",
     affiliation: "incorrect",
   });
-  const navigate = useNavigate();
+
+  const randomNewCharacter = async () => {
+    console.log("Let's get a new character!");
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/genshin-characters/random?excludeId=${dailyCharacter.id}`
+      );
+      setDailyCharacter(response.data);
+    } catch {
+      setError("Failed to random new character");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const resetGame = () => {
-    navigate("/endless");
+    randomNewCharacter();
+    setFinishGame(false);
   };
 
   const checkAnswer = (character: any) => {
@@ -78,14 +92,14 @@ export function GenshinGuesser() {
     setGuessCharacterList((prevList) => [...prevList, character]);
   };
 
-  // initial fetch of the daily character
+  // initial fetch of the random character
   useEffect(() => {
     async function fetchDailyCharacter() {
       setLoading(true);
       setError(null);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/genshin-characters/daily`
+          `${import.meta.env.VITE_BACKEND_URL}/genshin-characters/random`
         );
         setDailyCharacter(response.data);
       } catch {
@@ -110,12 +124,12 @@ export function GenshinGuesser() {
       <div className="board_status">
         {loading && <li className="text-black-700">Loading characters...</li>}
         {error && <li className="text-red-500">{error}</li>}
-        {finishGame && <Button onClick={() => resetGame()}>Endless Mode</Button>}
+        {finishGame && <Button onClick={() => resetGame()}>Restart</Button>}
         {!loading && !error && (
           <DailyCharacter
             finishGame={finishGame}
             dailyCharacter={dailyCharacter}
-            mode={'DAILY'}
+            mode={"ENDLESS"}
           />
         )}
         {!finishGame && (

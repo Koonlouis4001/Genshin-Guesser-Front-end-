@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { DailyPage } from "~/page/dailyPage";
+import { EndlessPage } from "~/page/endlessPage";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,8 +8,8 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export default function Endless() {
   return (
-    <DailyPage />
+    <EndlessPage />
   )
 }

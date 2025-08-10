@@ -8,6 +8,6 @@ const currentPort = Number(process.env.PORT) || 3000;
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
   server: {
-    port: currentPort
+    port: currentPort,
   }
 });
